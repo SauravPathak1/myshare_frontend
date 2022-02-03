@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { AiOutlineCloudUpload } from 'react-icons/ai';
-import { MdCleaningServices, MdDelete } from 'react-icons/md';
+import { MdDelete } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
 import { client } from '../client';
