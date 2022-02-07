@@ -29,7 +29,6 @@ const Login = () => {
   };
   const responseFacebook = (response) => {
     if (response.accessToken) {
-      console.log(response);
       const { name, id, picture, email } = response;
       localStorage.setItem(
         'user',
@@ -41,7 +40,6 @@ const Login = () => {
         userName: name,
         image: picture.data.url,
       };
-      console.log(localStorage.getItem('user'));
       client.createIfNotExists(doc).then((response) => {
         navigate('/', { replace: true });
       });
