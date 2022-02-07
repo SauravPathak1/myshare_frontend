@@ -1,5 +1,6 @@
 import React from 'react';
 import Masonry from 'react-masonry-css';
+import { fetchUser } from '../utils/utils';
 import Pin from './Pin';
 
 const breakpointObj = {
@@ -12,6 +13,14 @@ const breakpointObj = {
 };
 
 const MasonryLayout = ({ pins }) => {
+  const user = fetchUser();
+  const checkOwner = (id) => {
+    if (user.id === id) {
+      return true;
+    } else {
+      return false;
+    }
+  };
   return (
     <div>
       <Masonry
@@ -19,7 +28,12 @@ const MasonryLayout = ({ pins }) => {
         breakpointCols={breakpointObj}
       >
         {pins?.map((pin) => (
-          <Pin key={pin._id} pin={pin} className='w-max' />
+          <Pin
+            key={pin._id}
+            pin={pin}
+            isOwner={checkOwner(pin?.postedBy?._id) ? 'true' : 'false'}
+            className='w-max'
+          />
         ))}
       </Masonry>
     </div>

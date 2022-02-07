@@ -8,12 +8,11 @@ import { BsFillArrowUpRightCircleFill } from 'react-icons/bs';
 import { urlFor, client } from '../client';
 import { fetchUser } from '../utils/utils';
 
-const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
+const Pin = ({ pin: { postedBy, image, _id, destination, save }, isOwner }) => {
   const [togglePinFocus, setTogglePinFocus] = useState(false);
   const [savePin, setSavePin] = useState(false);
   const navigate = useNavigate();
   const user = fetchUser();
-
   const handleSaveButtonClick = (id) => {
     if (!pinSaved) {
       setSavePin(true);
@@ -23,8 +22,8 @@ const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
         .insert('after', 'save[-1]', [
           {
             _key: uuidv4(),
-            userId: user?.googleId,
-            postedBy: { _ref: user?.googleId, _type: 'postedBy' },
+            userId: user?.id,
+            postedBy: { _ref: user?.id, _type: 'postedBy' },
           },
         ])
         .commit()
@@ -40,7 +39,7 @@ const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
   };
 
   const pinSaved = save?.filter(
-    (eachpin) => eachpin?.postedBy?._id === user?.googleId
+    (eachpin) => eachpin?.postedBy?._id === user?.id
   )?.length
     ? true
     : false;
@@ -108,7 +107,7 @@ const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
                     : destination}
                 </a>
               )}
-              {postedBy?._id === user?.googleId ? (
+              {postedBy?._id === user?.id ? (
                 <button
                   type='button'
                   onClick={(e) => {

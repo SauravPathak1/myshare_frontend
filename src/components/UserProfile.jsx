@@ -46,7 +46,7 @@ const UserProfile = () => {
   }, [text, userId]);
 
   const handleLogoutClick = () => {
-    localStorage.clear();
+    window.localStorage.clear();
     navigate('/login');
   };
 
