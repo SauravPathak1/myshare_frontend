@@ -31,7 +31,7 @@ const MasonryLayout = ({ pins }) => {
           <Pin
             key={pin._id}
             pin={pin}
-            isOwner={checkOwner(pin?.postedBy?._id) ? 'true' : 'false'}
+            isOwner={checkOwner(pin?.postedBy?._id)}
             className='w-max'
           />
         ))}
